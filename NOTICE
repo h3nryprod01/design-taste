@@ -1,0 +1,71 @@
+design-taste
+Copyright 2026 Nguyễn Phúc Ường
+
+This product is a synthesis (combined and de-duplicated work) of three
+upstream design skills. The original synthesis — the SKILL.md core and the
+package composition — is licensed under the MIT License (see LICENSE).
+
+The reference/ files are derived, in part, verbatim from upstream projects
+and REMAIN UNDER THEIR ORIGINAL LICENSES. Where Apache-2.0 material is
+included, this NOTICE and LICENSES/Apache-2.0.txt are provided to comply with
+Section 4 of the Apache License, Version 2.0.
+
+================================================================================
+Upstream sources and their licenses
+================================================================================
+
+1. emilkowalski/skill  (skills/emil-design-eng)
+   Copyright Emil Kowalski and contributors.
+   License: MIT  —  https://github.com/emilkowalski/skill
+   https://emilkowal.ski/skill | course: https://animations.dev
+
+2. pbakaus/impeccable
+   Copyright 2025 Paul Bakaus and contributors.
+   License: Apache License, Version 2.0  —  https://github.com/pbakaus/impeccable
+   Impeccable itself derives, in part, from Anthropic's "frontend-design"
+   skill (https://github.com/anthropics/skills), also Apache-2.0. That
+   upstream attribution is preserved here transitively.
+
+3. leonxlnx/taste-skill  (skills/taste-skill, "design-taste-frontend")
+   Copyright 2026 Leonxlnx.
+   License: MIT  —  https://github.com/leonxlnx/taste-skill
+
+================================================================================
+Per-file provenance and license map
+================================================================================
+
+SKILL.md                         New synthesis. MIT. (Distills ideas from all
+                                 three sources; no large verbatim blocks.)
+README.md                        New synthesis. MIT.
+
+reference/motion.md              Derived from emilkowalski/skill. MIT.
+reference/interaction-states.md  Verbatim from pbakaus/impeccable
+                                 (reference/interaction-design.md). APACHE-2.0.
+reference/anti-slop.md           Part 1 verbatim from pbakaus/impeccable
+                                 (Absolute bans + AI-slop test). APACHE-2.0.
+                                 Part 2 verbatim from leonxlnx/taste-skill
+                                 (Section 9, AI Tells). MIT.
+reference/design-systems.md      Derived from leonxlnx/taste-skill
+                                 (brief read, dials, system map, GSAP, installs). MIT.
+reference/pre-flight.md          Review format/checklist from emilkowalski/skill (MIT)
+                                 + pre-flight matrix from leonxlnx/taste-skill (MIT).
+
+================================================================================
+Apache-2.0 notice (for the impeccable-derived portions)
+================================================================================
+
+   Portions of this project are derived from "impeccable" by Paul Bakaus,
+   and transitively from the "frontend-design" skill by Anthropic, licensed
+   under the Apache License, Version 2.0.
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use those files except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
