@@ -67,4 +67,4 @@ This is a **mixed-license** package, because the upstream sources use different 
 | `reference/interaction-states.md`, `reference/anti-slop.md` (Part 1) | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | **Apache-2.0** ([`LICENSES/Apache-2.0.txt`](LICENSES/Apache-2.0.txt)) |
 | `reference/anti-slop.md` (Part 2), `reference/design-systems.md`, `reference/pre-flight.md` | [leonxlnx/taste-skill](https://github.com/leonxlnx/taste-skill) | MIT |
 
-The original synthesis is © 2026 Nguyễn Phúc Ường under MIT. The impeccable-derived files remain under Apache-2.0 (impeccable itself derives, in part, from Anthropic's `frontend-design` skill, also Apache-2.0 — attribution preserved transitively in `NOTICE`). When redistributing, keep `LICENSE`, `LICENSES/Apache-2.0.txt`, and `NOTICE` together.
+The original synthesis is © 2026 Nguyễn Phú Cường under MIT. The impeccable-derived files remain under Apache-2.0 (impeccable itself derives, in part, from Anthropic's `frontend-design` skill, also Apache-2.0 — attribution preserved transitively in `NOTICE`). When redistributing, keep `LICENSE`, `LICENSES/Apache-2.0.txt`, and `NOTICE` together.
