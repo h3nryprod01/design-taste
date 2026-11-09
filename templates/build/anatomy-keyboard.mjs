@@ -409,7 +409,7 @@ const FIG_CSS = `
 // ---------- live behaviour (needs no kit function, so the kit is not inlined) ----------
 const PAD = 22;
 const CODES = { Backquote: "`", Minus: "-", Equal: "=", BracketLeft: "[", BracketRight: "]", Backslash: "\\", Semicolon: ";", Quote: "'", Comma: ",", Period: ".", Slash: "/", Escape: "esc", Delete: "del", Insert: "ins", PrintScreen: "prt", Backspace: "back", Home: "home", Tab: "tab", PageUp: "pgup", CapsLock: "caps", Enter: "enter", NumpadEnter: "enter", PageDown: "pgdn", ShiftLeft: "shift", ShiftRight: "rshift", ArrowUp: "up", End: "end", ControlLeft: "ctrl", AltLeft: "opt", MetaLeft: "cmd", Space: "space", MetaRight: "rcmd", AltRight: "fn", ControlRight: "rctrl", ArrowLeft: "left", ArrowDown: "down", ArrowRight: "right" };
-const DATA = { W, H, pad: PAD, up: UP, boxA: BOX_ASM, boxB: BOX_APART, order: ORDER, detail: DETAIL, foot: Z.foot, travel: TRAVEL, stack0, spring: { stiffness: 64, damping: 14.2, substeps: 4, window: 0.76, lag: 0.06 }, keys: KEYS.map((key) => key.id), codes: CODES };
+const DATA = { W, H, pad: PAD, up: UP, boxA: BOX_ASM, boxB: BOX_APART, order: ORDER, detail: DETAIL, foot: Z.foot, travel: TRAVEL, stack0, spring: { stiffness: 64, damping: 16, substeps: 4, window: 0.76, lag: 0.06 }, keys: KEYS.map((key) => key.id), codes: CODES };
 const LIVE = `
 const D = ${JSON.stringify(DATA)};
 const fig = document.querySelector("[data-kb]");

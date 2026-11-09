@@ -27,7 +27,7 @@
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;overflow-x:clip;background:var(--paper);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:17px;line-height:1.55;font-variation-settings:"wdth" 100}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:17px;line-height:1.55;font-variation-settings:"wdth" 100}
 .mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
 h1,h2,h3{text-wrap:balance;margin:0}
 p{text-wrap:pretty;margin:0}
@@ -65,13 +65,14 @@ a{color:inherit}
 @media (max-width:820px){.hero-main,.hero-side{grid-column:1/-1}.hero-side{border-top:0}}
 
 /* Section heading */
-.sec-head{grid-column:1/-1;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));border-bottom:2px solid var(--ink)}
-.sec-head h2{grid-column:1/8;padding:var(--gut);font-size:clamp(28px,3.4vw,52px);line-height:1.04;letter-spacing:-.025em;font-weight:800;font-variation-settings:"wdth" 96;border-right:2px solid var(--ink)}
-.sec-head p{grid-column:8/-1;padding:var(--gut);color:var(--ink-2);align-self:end;max-width:46ch}
-@media (max-width:820px){.sec-head h2,.sec-head p{grid-column:1/-1;border-right:0}.sec-head p{padding-top:0}}
+.sec-head{grid-column:1/-1;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:2px;background:var(--ink);border-bottom:2px solid var(--ink)}
+.sec-head>*{background:var(--paper)}
+.sec-head h2{grid-column:1/8;padding:var(--gut);font-size:clamp(28px,3.4vw,52px);line-height:1.04;letter-spacing:-.025em;font-weight:800;font-variation-settings:"wdth" 96}
+.sec-head p{grid-column:8/-1;padding:var(--gut);color:var(--ink-2);display:grid;align-content:end}
+@media (max-width:820px){.sec-head{column-gap:0}.sec-head h2,.sec-head p{grid-column:1/-1}.sec-head p{padding-top:0}}
 
 /* Departure board */
-.board-wrap{grid-column:1/-1;background:var(--board);padding:var(--gut);overflow-x:auto;border-bottom:2px solid var(--ink)}
+.board-wrap{position:relative;grid-column:1/-1;background:var(--board);padding:var(--gut);overflow-x:auto;border-bottom:2px solid var(--ink)}
 table.board{border-collapse:separate;border-spacing:0 6px;min-width:760px;width:100%;color:var(--flap-ink)}
 .board th{font:600 11px/1 "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.08em;text-align:left;color:oklch(70% .02 95);padding:4px 10px 8px 0}
 .board td{padding:0 14px 0 0;white-space:nowrap}

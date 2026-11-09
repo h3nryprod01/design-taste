@@ -15,9 +15,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - `docs/images/`: README screenshots of both templates (desktop and phone).
 - README `Templates` section and a `Templates` pointer in `SKILL.md`.
 
-### Known issues
+### Fixed
 
-- `scripts/preflight.mjs` reports `SIDE_STRIPE_BORDER` on `templates/swiss-report.html`: the 2px ink borders there are the structural grid rules of the Swiss layout, not coloured accent stripes. The rule needs to tell structural grid borders apart from decorative stripes.
+- `scripts/preflight.mjs`: `SIDE_STRIPE_BORDER` no longer fires when the side border sits on the same line as a top or bottom border of the same weight (a grid cell edge, not an accent stripe). Two tests cover the negative and positive case.
 
 ## [2.1.0] - 2026-09-25
 
