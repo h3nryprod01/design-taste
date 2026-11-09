@@ -272,6 +272,28 @@ test("negative: border-left: 1px solid does not fire SIDE_STRIPE_BORDER", () => 
   }
 });
 
+test("negative: a grid cell with border-right and border-bottom does not fire SIDE_STRIPE_BORDER", () => {
+  const css = ".cell { border-right: 2px solid var(--ink); border-bottom: 2px solid var(--ink); }\n" +
+    '<div class="border-r-2 border-b-2"></div>\n';
+  const { dir, path } = withTempFile(css, ".html");
+  try {
+    const { stdout } = run([path]);
+    assert.doesNotMatch(stdout, /SIDE_STRIPE_BORDER/);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("positive: a lone border-left: 4px still fires SIDE_STRIPE_BORDER", () => {
+  const { dir, path } = withTempFile(".callout { border-left: 4px solid tomato; }\n", ".css");
+  try {
+    const { stdout } = run([path]);
+    assert.match(stdout, /SIDE_STRIPE_BORDER/);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test("negative: scale(0.95) does not fire SCALE_ZERO_ENTRY", () => {
   const { dir, path } = withTempFile(".enter { transform: scale(0.95); opacity: 0; }\n", ".css");
   try {

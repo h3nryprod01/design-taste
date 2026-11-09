@@ -71,6 +71,11 @@ const SCROLL_LISTENER = /addEventListener\(\s*["']scroll["']/;
 const GRADIENT_TEXT = /background-clip:\s*text|-webkit-background-clip:\s*text|\bbg-clip-text\b/;
 const SIDE_STRIPE_BORDER =
   /border-(?:left|right):\s*(?:[2-9]|\d{2,})px|\bborder-[lr]-(?:\[)?[2-8](?:px)?(?:\])?\b/;
+// A side border paired with a top/bottom border of the same weight is a grid
+// rule (cell edges in a Swiss / tabular layout), not an accent stripe.
+// ponytail: same-line check only; a rule split across lines still fires.
+const GRID_RULE_PAIR =
+  /border-(?:top|bottom):\s*(?:[2-9]|\d{2,})px|\bborder-[tb]-(?:\[)?[2-8](?:px)?(?:\])?\b/;
 const REPEATING_GRADIENT = /repeating-linear-gradient/;
 const FE_TURBULENCE = /feTurbulence/;
 const CURSOR_IMAGE = /cursor:\s*url\(/;
@@ -167,7 +172,7 @@ function checkFile(path) {
     if (GRADIENT_TEXT.test(line)) {
       hard.push({ n, rule: "GRADIENT_TEXT", snippet: snippet(line) });
     }
-    if (SIDE_STRIPE_BORDER.test(line)) {
+    if (SIDE_STRIPE_BORDER.test(line) && !GRID_RULE_PAIR.test(line)) {
       hard.push({ n, rule: "SIDE_STRIPE_BORDER", snippet: snippet(line) });
     }
     if (REPEATING_GRADIENT.test(line)) {

@@ -6,3 +6,5 @@ node_modules/
 .cursor/
 .claude/settings.local.json
 .claude/memory/
+.superpowers/
+templates/build/kb.html

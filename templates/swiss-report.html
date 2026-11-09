@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kessler Gleis Annual Report 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Theme lock: light only. This is the printed annual report, read at a desk under office light; the paper is the brand. */
+:root{
+  --paper: oklch(97.5% 0.004 90);
+  --paper-2: oklch(94% 0.005 90);
+  --ink: oklch(19% 0.012 260);
+  --ink-2: oklch(36% 0.012 260);
+  --signal: oklch(56% 0.205 28);
+  --signal-ink: oklch(98.5% 0.008 28);
+  --board: oklch(21% 0.012 260);
+  --flap: oklch(27% 0.012 260);
+  --flap-ink: oklch(94% 0.03 95);
+  --ease-out: cubic-bezier(.23,1,.32,1);
+  --ease-mech: cubic-bezier(.7,0,.2,1);
+  --gut: clamp(16px, 2.4vw, 32px);
+  /* z-index scale */
+  --z-sticky: 10;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:17px;line-height:1.55;font-variation-settings:"wdth" 100}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+h1,h2,h3{text-wrap:balance;margin:0}
+p{text-wrap:pretty;margin:0}
+a{color:inherit}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:3px solid var(--signal);outline-offset:3px}
+
+/* Header */
+.top{position:sticky;top:0;z-index:var(--z-sticky);display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px var(--gut);background:var(--paper);border-bottom:2px solid var(--ink)}
+.brand{font-weight:800;font-variation-settings:"wdth" 118;letter-spacing:-.01em;text-decoration:none;display:flex;align-items:center;gap:10px;font-size:18px}
+.brand i{width:18px;height:18px;background:var(--signal);display:inline-block}
+.top nav{display:flex;gap:clamp(12px,2vw,28px);font:600 12px/1 "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.06em}
+.top nav a{text-decoration:none;padding:10px 0;background:linear-gradient(var(--ink),var(--ink)) left bottom/0 2px no-repeat;transition:background-size .25s var(--ease-out)}
+.top nav a:hover{background-size:100% 2px}
+@media (max-width:640px){.top nav a:not(:last-child){display:none}}
+
+/* Grid primitives */
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr))}
+.cell{border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:var(--gut);position:relative;min-width:0}
+.label{font:600 12px/1.3 "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.06em}
+
+/* Hero */
+.hero{border-bottom:2px solid var(--ink)}
+.hero-year{grid-column:1/-1;display:flex;justify-content:space-between;padding:clamp(8px,2vw,24px) var(--gut) 0;font-weight:900;font-size:clamp(96px,27vw,420px);line-height:.78;letter-spacing:-.045em;overflow:hidden;border-bottom:2px solid var(--ink)}
+.hero-year span{display:block;font-variation-settings:"wdth" 112;animation:widen 1.6s var(--ease-mech) both;animation-delay:calc(var(--i)*90ms)}
+.hero-year span:nth-child(4){color:var(--signal)}
+@keyframes widen{from{font-variation-settings:"wdth" 62;transform:translateY(18%)}}
+.hero-main{grid-column:1/8}
+.hero-title{font-size:clamp(34px,4.6vw,72px);line-height:1.02;letter-spacing:-.03em;font-weight:800;font-variation-settings:"wdth" 92}
+.hero-side{grid-column:8/-1;display:flex;flex-direction:column;justify-content:space-between;gap:28px}
+.hero-side p{max-width:38ch;color:var(--ink-2)}
+.meta{display:flex;align-items:center;gap:14px}
+.spinner{width:28px;height:28px;background:var(--ink);animation:quarter 2.4s var(--ease-mech) infinite}
+@keyframes quarter{0%,20%{transform:rotate(0)}45%,70%{transform:rotate(90deg)}95%,100%{transform:rotate(180deg)}}
+@media (max-width:820px){.hero-main,.hero-side{grid-column:1/-1}.hero-side{border-top:0}}
+
+/* Section heading */
+.sec-head{grid-column:1/-1;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:2px;background:var(--ink);border-bottom:2px solid var(--ink)}
+.sec-head>*{background:var(--paper)}
+.sec-head h2{grid-column:1/8;padding:var(--gut);font-size:clamp(28px,3.4vw,52px);line-height:1.04;letter-spacing:-.025em;font-weight:800;font-variation-settings:"wdth" 96}
+.sec-head p{grid-column:8/-1;padding:var(--gut);color:var(--ink-2);display:grid;align-content:end}
+@media (max-width:820px){.sec-head{column-gap:0}.sec-head h2,.sec-head p{grid-column:1/-1}.sec-head p{padding-top:0}}
+
+/* Departure board */
+.board-wrap{position:relative;grid-column:1/-1;background:var(--board);padding:var(--gut);overflow-x:auto;border-bottom:2px solid var(--ink)}
+table.board{border-collapse:separate;border-spacing:0 6px;min-width:760px;width:100%;color:var(--flap-ink)}
+.board th{font:600 11px/1 "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.08em;text-align:left;color:oklch(70% .02 95);padding:4px 10px 8px 0}
+.board td{padding:0 14px 0 0;white-space:nowrap}
+.flaps{display:inline-flex;gap:2px}
+.f{display:inline-grid;place-items:center;width:1.05em;height:1.45em;background:var(--flap);border-radius:2px;font:600 clamp(15px,1.5vw,20px)/1 "IBM Plex Mono",monospace;position:relative;transform-origin:50% 50%}
+.f::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:oklch(14% .01 260)}
+.f.flip{animation:flip 70ms linear}
+@keyframes flip{50%{transform:scaleY(.08)}}
+.f.hot{color:oklch(78% .15 40)}
+
+/* Figures */
+.fig-grid{grid-column:1/-1}
+.fig{display:flex;flex-direction:column;justify-content:space-between;gap:28px;min-height:clamp(220px,26vw,340px)}
+.fig .n{font-weight:900;font-variation-settings:"wdth" 75;font-size:clamp(64px,10vw,168px);line-height:.82;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.fig .n small{font-size:.32em;letter-spacing:0;font-variation-settings:"wdth" 100;margin-left:.15em}
+.fig p{max-width:34ch}
+.fig.red{background:var(--signal);color:var(--signal-ink)}
+.fig.inv{background:var(--ink);color:var(--paper)}
+.f-a{grid-column:1/8}.f-b{grid-column:8/-1}.f-c{grid-column:1/5}.f-d{grid-column:5/9}.f-e{grid-column:9/-1}
+@media (max-width:820px){.f-a,.f-b,.f-c,.f-d,.f-e{grid-column:1/-1}}
+.spark{width:100%;height:64px;display:block}
+.spark path{fill:none;stroke:currentColor;stroke-width:2.5;stroke-linejoin:round}
+
+/* Bars */
+.chart{grid-column:1/-1;padding:var(--gut);border-bottom:2px solid var(--ink);border-right:2px solid var(--ink)}
+.bars{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));align-items:end;gap:clamp(4px,1vw,14px);height:clamp(240px,34vw,420px);border-bottom:2px solid var(--ink)}
+.bar{position:relative;height:var(--h);display:flex;flex-direction:column;justify-content:flex-end}
+.bar i{display:block;height:100%;background:var(--ink);transform:scaleY(0);transform-origin:bottom;transition:transform 1s var(--ease-mech);transition-delay:calc(var(--i)*60ms)}
+.bar.peak i{background:var(--signal)}
+.bar b{position:absolute;top:-1.6em;left:0;right:0;text-align:center;font:600 clamp(10px,1.1vw,13px)/1 "IBM Plex Mono",monospace;opacity:0;transition:opacity .4s var(--ease-out);transition-delay:calc(var(--i)*60ms + .6s)}
+.in .bar i{transform:scaleY(1)}
+.in .bar b{opacity:1}
+.months{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(4px,1vw,14px);margin-top:10px;font:600 11px/1 "IBM Plex Mono",monospace;text-transform:uppercase;text-align:center}
+
+/* Network */
+.map-wrap{grid-column:1/-1;border-bottom:2px solid var(--ink);overflow-x:auto;background:var(--paper-2)}
+.map{display:block;min-width:720px;width:100%;height:auto}
+.map .line{fill:none;stroke:var(--ink);stroke-width:10;stroke-linecap:square;stroke-linejoin:miter}
+.map .line.new{stroke:var(--signal);stroke-width:14}
+.map .st{fill:var(--paper);stroke:var(--ink);stroke-width:5;opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.6);transition:opacity .3s var(--ease-out),transform .5s var(--ease-out)}
+.map.in .st{opacity:1;transform:none}
+.map text{font:600 20px "IBM Plex Mono",monospace;fill:var(--ink);text-transform:uppercase;letter-spacing:.04em}
+.map .tag{font:800 22px "Archivo",sans-serif;fill:var(--signal)}
+.legend{display:flex;gap:24px;flex-wrap:wrap;padding:14px var(--gut);border-top:2px solid var(--ink)}
+.legend span{display:inline-flex;align-items:center;gap:10px}
+.legend i{width:28px;height:8px;background:var(--ink)}
+.legend i.r{background:var(--signal);height:10px}
+
+/* Statement */
+.statement{grid-column:1/-1;padding:clamp(56px,10vw,160px) var(--gut);border-bottom:2px solid var(--ink)}
+.statement p{font-weight:800;font-variation-settings:"wdth" 88;font-size:clamp(34px,6vw,96px);line-height:1;letter-spacing:-.035em;max-width:16ch}
+.statement .w{opacity:.14;transition:opacity .25s linear}
+.statement .w.on{opacity:1}
+.statement .w.r{color:var(--signal)}
+
+/* Download */
+.dl{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center;padding:var(--gut);border-bottom:2px solid var(--ink)}
+.btn{appearance:none;border:2px solid var(--ink);background:var(--ink);color:var(--paper);font:700 16px/1 "Archivo",sans-serif;padding:18px 22px;min-height:56px;display:inline-flex;align-items:center;gap:14px;cursor:pointer;transition:background .18s var(--ease-out),color .18s var(--ease-out),transform .12s var(--ease-out)}
+.btn:hover{background:var(--signal);border-color:var(--signal);color:var(--signal-ink)}
+.btn:active{transform:scale(.97)}
+.btn[aria-busy="true"]{cursor:progress}
+.btn .sq{width:14px;height:14px;background:currentColor;transition:transform .3s var(--ease-mech)}
+.btn[aria-busy="true"] .sq{animation:quarter 1s var(--ease-mech) infinite}
+.btn.done{background:var(--paper);color:var(--ink)}
+footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:20px var(--gut);font:400 12px/1.4 "IBM Plex Mono",monospace;color:var(--ink-2)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+  .bar i{transform:none}.bar b{opacity:1}.map .st{opacity:1;transform:none}.statement .w{opacity:1}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a class="brand" href="#"><i></i>Kessler Gleis</a>
+  <nav aria-label="Report sections">
+    <a href="#board">Departures</a><a href="#figures">Figures</a><a href="#network">Network</a><a href="#download">Download</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero grid" aria-labelledby="h1">
+  <div class="hero-year" aria-hidden="true"><span style="--i:0">2</span><span style="--i:1">0</span><span style="--i:2">2</span><span style="--i:3">6</span></div>
+  <div class="cell hero-main"><h1 id="h1" class="hero-title">41.7 million tonnes moved by rail. 1.9 million truck trips that never happened.</h1></div>
+  <div class="cell hero-side">
+    <p>The annual report of the Kessler Gleis freight cooperative: 214 member shippers, 9 Alpine corridors, one shared timetable.</p>
+    <div class="meta"><div class="spinner" aria-hidden="true"></div><span class="label">Reporting period<br>Jan 1 to Dec 31, 2026</span></div>
+  </div>
+</section>
+
+<section id="board" class="grid" aria-labelledby="h-board">
+  <div class="sec-head"><h2 id="h-board">Departures, Basel Rangierbahnhof, 06:00</h2><p>A normal Tuesday. Every train on this board carries what would otherwise fill about 38 trucks on the A2.</p></div>
+  <div class="board-wrap">
+    <table class="board">
+      <thead><tr><th>Time</th><th>Train</th><th>Destination</th><th>Cargo</th><th>Track</th><th>Status</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+</section>
+
+<section id="figures" class="grid" aria-labelledby="h-fig">
+  <div class="sec-head"><h2 id="h-fig">The year in five figures</h2><p>Audited by Treuhand Rhein AG. Tonnage counts net cargo weight only, never the wagons.</p></div>
+  <div class="grid fig-grid">
+    <div class="cell fig f-a">
+      <span class="label">Freight moved</span>
+      <div class="n" data-to="41.7" data-dec="1">0<small>Mt</small></div>
+      <svg class="spark" viewBox="0 0 300 64" preserveAspectRatio="none" aria-label="Five-year trend, rising from 33.0 to 41.7 million tonnes"><path d="M0 52 L75 46 L150 41 L225 24 L300 8"/></svg>
+      <p>Up 6.8% on 2025, the fifth straight year of growth.</p>
+    </div>
+    <div class="cell fig f-b red">
+      <span class="label">Truck trips avoided</span>
+      <div class="n" data-to="1.93" data-dec="2">0<small>M</small></div>
+      <p>Calculated at 21.6 tonnes per articulated truck, the Swiss average load.</p>
+    </div>
+    <div class="cell fig f-c inv">
+      <span class="label">CO2e avoided</span>
+      <div class="n" data-to="612" data-dec="0">0<small>kt</small></div>
+      <p>Against the same cargo by road.</p>
+    </div>
+    <div class="cell fig f-d">
+      <span class="label">On time</span>
+      <div class="n" data-to="96.3" data-dec="1">0<small>%</small></div>
+      <p>Arrivals within 15 minutes of plan.</p>
+    </div>
+    <div class="cell fig f-e">
+      <span class="label">Member shippers</span>
+      <div class="n" data-to="214" data-dec="0">0</div>
+      <p>23 joined this year, most of them steel and timber.</p>
+    </div>
+  </div>
+  <div class="chart" id="chart">
+    <span class="label">Million tonnes per month</span>
+    <div class="bars" style="margin-top:48px"></div>
+    <div class="months" aria-hidden="true"></div>
+  </div>
+</section>
+
+<section id="network" class="grid" aria-labelledby="h-net">
+  <div class="sec-head"><h2 id="h-net">One network, nine corridors</h2><p>The Brenner to Tauern link opened in March and carried 3.4 Mt by December, ahead of every forecast we made.</p></div>
+  <div class="map-wrap">
+    <svg class="map" id="map" viewBox="0 0 1200 640" role="img" aria-label="Schematic map of the network linking Rotterdam, Hamburg, Basel, Milano, Genova and Wien. The new Wien to Milano corridor is highlighted.">
+      <path class="line" d="M170 120 H330 L480 270 V340"/>
+      <path class="line" d="M720 80 V160 L540 340 H480"/>
+      <path class="line" d="M480 340 V410 L590 520 H660"/>
+      <path class="line" d="M460 340 V560"/>
+      <path class="line" d="M720 80 H880 L1040 240 V320"/>
+      <path class="line new" d="M1040 320 H900 L680 540 H660"/>
+      <g>
+        <circle class="st" cx="170" cy="120" r="16"/><text x="150" y="80">Rotterdam</text>
+        <circle class="st" cx="720" cy="80" r="16"/><text x="752" y="70">Hamburg</text>
+        <circle class="st" cx="470" cy="340" r="22"/><text x="300" y="350">Basel</text>
+        <circle class="st" cx="660" cy="530" r="18"/><text x="700" y="600">Milano</text>
+        <circle class="st" cx="460" cy="560" r="16"/><text x="300" y="610">Genova</text>
+        <circle class="st" cx="1040" cy="320" r="16"/><text x="1000" y="380">Wien</text>
+        <text class="tag" x="860" y="470">New in 2026</text>
+      </g>
+    </svg>
+    <div class="legend label"><span><i></i>Existing corridor</span><span><i class="r"></i>Opened 2026</span></div>
+  </div>
+</section>
+
+<section class="grid" aria-label="Closing statement">
+  <div class="statement"><p id="statement">We laid no new track this year. We filled the trains we already had.</p></div>
+  <div class="dl" id="download">
+    <p style="max-width:44ch">The full report runs to 112 pages, including corridor-level tonnage and the auditor's statement.</p>
+    <button class="btn" id="dlbtn" type="button"><span class="sq" aria-hidden="true"></span><span class="t">Download the report (PDF, 14.2 MB)</span></button>
+  </div>
+</section>
+</main>
+
+<footer><span>Kessler Gleis Genossenschaft, Basel</span><span>Figures as of Feb 14, 2027</span></footer>
+
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const once = (el, fn, threshold = .35) => {
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { fn(e.target); io.unobserve(e.target); } }), { threshold });
+  io.observe(el);
+};
+
+/* Split-flap board */
+const CH = ' ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789:+-';
+const rows = [
+  ['06:12','KG 4471','MILANO SMISTAMENTO','STEEL COIL','7','ON TIME'],
+  ['06:27','KG 4480','ROTTERDAM MAASVLAKTE','CONTAINERS','3','ON TIME'],
+  ['06:41','KG 2213','WIEN ZVBF','SAWN TIMBER','12','+4 MIN'],
+  ['06:58','KG 4492','HAMBURG BILLWERDER','AUTOMOTIVE','5','BOARDING'],
+  ['07:15','KG 5107','GENOVA PORTO','GRAIN','9','ON TIME'],
+];
+const widths = [5,7,20,10,2,8];
+const tbody = document.getElementById('rows');
+rows.forEach(r => {
+  const tr = document.createElement('tr');
+  r.forEach((txt, c) => {
+    const td = document.createElement('td');
+    td.innerHTML = `<span class="sr">${txt}</span><span class="flaps" aria-hidden="true">${'<span class="f"> </span>'.repeat(widths[c])}</span>`;
+    tr.appendChild(td);
+  });
+  tbody.appendChild(tr);
+});
+function setCell(td, text, delay = 0) {
+  const target = text.padEnd(td.querySelectorAll('.f').length);
+  td.querySelector('.sr').textContent = text;
+  td.querySelectorAll('.f').forEach((f, i) => {
+    f.classList.toggle('hot', /MIN/.test(text));
+    if (reduce) { f.textContent = target[i]; return; }
+    let steps = 6 + Math.floor(Math.random() * 10);
+    setTimeout(function tick() {
+      if (steps-- <= 0) { f.textContent = target[i]; return; }
+      f.textContent = CH[Math.floor(Math.random() * CH.length)];
+      f.classList.remove('flip'); void f.offsetWidth; f.classList.add('flip');
+      setTimeout(tick, 70);
+    }, delay + i * 28);
+  });
+}
+once(tbody, () => {
+  [...tbody.rows].forEach((tr, r) => [...tr.cells].forEach((td, c) => setCell(td, rows[r][c], r * 220 + c * 90)));
+  const statuses = ['ON TIME','BOARDING','+2 MIN','+6 MIN','DEPARTED'];
+  setInterval(() => {
+    const r = Math.floor(Math.random() * rows.length);
+    setCell(tbody.rows[r].cells[5], statuses[Math.floor(Math.random() * statuses.length)]);
+  }, 4200);
+}, .2);
+
+/* Counters */
+document.querySelectorAll('.fig .n').forEach(el => {
+  const to = +el.dataset.to, dec = +el.dataset.dec, unit = el.querySelector('small')?.outerHTML || '';
+  const fmt = v => v.toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec }) + unit;
+  if (reduce) { el.innerHTML = fmt(to); return; }
+  once(el, () => {
+    const t0 = performance.now(), dur = 1600;
+    requestAnimationFrame(function step(t) {
+      const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(2, -10 * p);
+      el.innerHTML = fmt(p === 1 ? to : to * e);
+      if (p < 1) requestAnimationFrame(step);
+    });
+  });
+});
+
+/* Bars */
+const months = [['Jan',3.6],['Feb',3.0],['Mar',3.5],['Apr',3.4],['May',3.6],['Jun',3.7],['Jul',3.2],['Aug',3.5],['Sep',3.8],['Oct',4.1],['Nov',3.6],['Dec',2.7]];
+const bars = document.querySelector('.bars'), ml = document.querySelector('.months');
+months.forEach(([m, v], i) => {
+  bars.insertAdjacentHTML('beforeend', `<div class="bar${v === 4.1 ? ' peak' : ''}" style="--h:${(v / 4.5 * 100).toFixed(1)}%;--i:${i}"><b>${v.toFixed(1)}</b><i></i><span class="sr">${m}: ${v} million tonnes</span></div>`);
+  ml.insertAdjacentHTML('beforeend', `<span>${m}</span>`);
+});
+once(document.getElementById('chart'), el => el.classList.add('in'));
+
+/* Network lines draw in */
+const map = document.getElementById('map');
+const lines = [...map.querySelectorAll('.line')];
+lines.forEach(p => { const L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = reduce ? 0 : L; });
+once(map, () => {
+  map.classList.add('in');
+  if (reduce) return;
+  lines.forEach((p, i) => p.animate([{ strokeDashoffset: p.getTotalLength() }, { strokeDashoffset: 0 }],
+    { duration: p.classList.contains('new') ? 1400 : 900, delay: i * 180 + (p.classList.contains('new') ? 400 : 0), easing: 'cubic-bezier(.7,0,.2,1)', fill: 'forwards' }));
+}, .25);
+
+/* Statement: words light up as you read down */
+const st = document.getElementById('statement');
+st.innerHTML = st.textContent.split(' ').map(w => `<span class="w${/filled|had/.test(w) ? ' r' : ''}">${w}</span>`).join(' ');
+const words = [...st.querySelectorAll('.w')];
+if (!reduce) {
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    const r = e.intersectionRatio;
+    words.forEach((w, i) => w.classList.toggle('on', i / words.length < (r - .05) * 1.6));
+  }), { threshold: Array.from({ length: 41 }, (_, i) => i / 40) });
+  io.observe(st);
+}
+
+/* Download button states */
+const btn = document.getElementById('dlbtn');
+btn.addEventListener('click', () => {
+  if (btn.getAttribute('aria-busy') === 'true') return;
+  const t = btn.querySelector('.t');
+  btn.setAttribute('aria-busy', 'true'); t.textContent = 'Preparing PDF';
+  setTimeout(() => { btn.removeAttribute('aria-busy'); btn.classList.add('done'); t.textContent = 'Saved to Downloads'; }, 1400);
+});
+</script>
+</body>
+</html>

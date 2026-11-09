@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tessel 75 by Moraine Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Theme lock: dark only. A product shot in a black studio; the keyboard is lit from above like a camera set. */
+:root{
+  --bg: oklch(15% 0.008 255);
+  --bg-2: oklch(19% 0.01 255);
+  --line: oklch(100% 0 0 / .1);
+  --text: oklch(95% 0.005 255);
+  --muted: oklch(72% 0.01 255);
+  --accent: oklch(80% 0.145 72);
+  --accent-ink: oklch(22% 0.03 72);
+  /* product colorway (swapped by the picker) */
+  --case: oklch(32% 0.008 255);
+  --case-hi: oklch(44% 0.008 255);
+  --cap: oklch(90% 0.006 90);
+  --cap-mod: oklch(62% 0.01 255);
+  --legend: oklch(25% 0.01 255);
+  --cap-accent: var(--accent);
+  --u: min(4.6vw, 40px);
+  --ease-out: cubic-bezier(.23,1,.32,1);
+  --z-nav: 10;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Geist",system-ui,sans-serif;font-size:17px;line-height:1.55;overflow-x:hidden}
+h1,h2,h3{margin:0;text-wrap:balance;letter-spacing:-.03em}
+p{margin:0;text-wrap:pretty}
+.mono{font-family:"Geist Mono",ui-monospace,monospace}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1200px,100% - 32px);margin-inline:auto}
+
+nav.top{position:fixed;inset:0 0 auto;z-index:var(--z-nav);display:flex;justify-content:space-between;align-items:center;padding:14px max(16px,calc((100vw - 1200px)/2));background:oklch(15% .008 255 / .72);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.logo{font-weight:700;letter-spacing:-.02em;text-decoration:none;color:var(--text)}
+.logo span{color:var(--muted);font-weight:500}
+.btn{appearance:none;border:0;cursor:pointer;font:600 15px/1 "Geist",sans-serif;padding:14px 20px;min-height:44px;border-radius:999px;background:var(--accent);color:var(--accent-ink);text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:transform .12s var(--ease-out),background .2s var(--ease-out)}
+.btn:hover{background:oklch(85% .14 72)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--text);box-shadow:inset 0 0 0 1px var(--line)}
+.btn.ghost:hover{box-shadow:inset 0 0 0 1px oklch(100% 0 0 / .3)}
+
+/* Hero */
+.hero{min-height:100svh;display:grid;place-items:center;padding:96px 0 40px;position:relative;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(40% 45% at 50% 48%,oklch(34% .02 255 / .6),transparent 100%);z-index:-1}
+.hero-copy{text-align:center;display:grid;gap:18px;justify-items:center}
+.hero h1{font-size:clamp(44px,7.4vw,96px);line-height:.98;font-weight:700;max-width:12ch}
+.hero p{color:var(--muted);max-width:44ch}
+.hero .actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.reveal{opacity:0;transform:translateY(16px);filter:blur(6px);animation:in .9s var(--ease-out) forwards;animation-delay:calc(var(--d,0)*120ms + 150ms)}
+@keyframes in{to{opacity:1;transform:none;filter:none}}
+
+/* 3D stage */
+.explode{height:420vh;position:relative}
+.stage{position:sticky;top:0;height:100svh;display:grid;place-items:center;perspective:1600px;perspective-origin:50% 35%;overflow:hidden}
+.kb{position:relative;width:calc(var(--u)*16 + var(--u)*.9);height:calc(var(--u)*6.2 + var(--u)*.9);transform-style:preserve-3d;transform:rotateX(52deg) rotateZ(-24deg)}
+.layer{position:absolute;inset:0;transform-style:preserve-3d;border-radius:calc(var(--u)*.28)}
+.l-shadow{background:oklch(5% 0 0 / .7);filter:blur(28px);transform:translateZ(-40px) scale(.96)}
+.l-case{background:linear-gradient(160deg,var(--case-hi),var(--case) 55%);box-shadow:inset 0 2px 0 oklch(100% 0 0 / .18),inset 0 -6px 0 oklch(0% 0 0 / .3)}
+.l-case::after{content:"";position:absolute;inset:calc(var(--u)*.3);border-radius:calc(var(--u)*.12);background:oklch(12% .008 255)}
+.l-foam{inset:calc(var(--u)*.34);background:oklch(30% .03 25);border-radius:4px;background-image:radial-gradient(oklch(24% .03 25) 1px,transparent 1.4px);background-size:7px 7px}
+.l-pcb{inset:calc(var(--u)*.38);border-radius:4px;background:oklch(34% .08 160);background-image:linear-gradient(90deg,oklch(55% .1 85 / .45) 1px,transparent 1px),linear-gradient(oklch(55% .1 85 / .3) 1px,transparent 1px);background-size:calc(var(--u)*.5) calc(var(--u)*.5)}
+.l-plate{inset:calc(var(--u)*.4);border-radius:3px;background:oklch(78% .02 85)}
+.l-switch{inset:calc(var(--u)*.45)}
+.l-caps{inset:calc(var(--u)*.45)}
+.keys{position:absolute;inset:0;display:grid;grid-template-columns:repeat(64,1fr);grid-template-rows:repeat(6,1fr);gap:calc(var(--u)*.06)}
+.l-plate .keys .k{background:oklch(18% .01 255);border-radius:2px;margin:12%}
+.l-switch .k{background:oklch(26% .01 255);border-radius:3px;margin:9%;display:grid;place-items:center}
+.l-switch .k::after{content:"";width:34%;height:34%;background:oklch(62% .17 28);border-radius:1px;box-shadow:0 0 0 2px oklch(20% .01 255)}
+.l-caps .k{background:var(--cap);color:var(--legend);border-radius:calc(var(--u)*.12);box-shadow:inset 0 calc(var(--u)*-.09) 0 oklch(0% 0 0 / .18),inset 0 calc(var(--u)*.04) 0 oklch(100% 0 0 / .5);font:500 calc(var(--u)*.22)/1 "Geist",sans-serif;display:flex;align-items:flex-start;justify-content:flex-start;padding:calc(var(--u)*.12) calc(var(--u)*.14);transition:transform .08s var(--ease-out),background .3s var(--ease-out)}
+.l-caps .k.mod{background:var(--cap-mod)}
+.l-caps .k.acc{background:var(--cap-accent);color:var(--accent-ink)}
+.l-caps .k.down{transform:translateZ(-4px) scale(.95)}
+
+.captions{position:absolute;inset:auto 0 max(28px,6svh);display:grid;place-items:center;pointer-events:none}
+.cap{grid-area:1/1;text-align:center;opacity:0;transform:translateY(10px);display:grid;gap:6px;max-width:min(520px,90vw)}
+.cap h3{font-size:clamp(22px,2.6vw,32px);font-weight:600}
+.cap p{color:var(--muted)}
+.cap .mono{font-size:12px;color:var(--accent);letter-spacing:.04em}
+.progress{position:absolute;right:max(16px,3vw);top:50%;translate:0 -50%;display:grid;gap:10px}
+.progress i{display:block;width:3px;height:26px;border-radius:2px;background:var(--line);transition:background .3s var(--ease-out)}
+.progress i.on{background:var(--accent)}
+
+/* Sound */
+section.block{padding:clamp(80px,12vw,160px) 0;border-top:1px solid var(--line)}
+.split{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(32px,6vw,96px);align-items:center}
+@media (max-width:860px){.split{grid-template-columns:1fr}}
+.block h2{font-size:clamp(34px,4.6vw,60px);line-height:1.02;font-weight:700}
+.block p.lede{color:var(--muted);margin-top:18px;max-width:46ch}
+.toggle{display:inline-flex;margin-top:28px;padding:4px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--line);position:relative}
+.toggle button{appearance:none;border:0;background:none;color:var(--muted);font:500 14px/1 "Geist",sans-serif;padding:12px 18px;min-height:44px;border-radius:999px;cursor:pointer;position:relative;z-index:1;transition:color .2s var(--ease-out)}
+.toggle button[aria-pressed="true"]{color:var(--accent-ink)}
+.toggle .pill{position:absolute;top:4px;bottom:4px;left:4px;border-radius:999px;background:var(--accent);transition:transform .3s var(--ease-out),width .3s var(--ease-out)}
+.pad{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;padding:18px;border-radius:16px;background:var(--case);box-shadow:inset 0 2px 0 oklch(100% 0 0 / .12),0 30px 60px -20px oklch(0% 0 0 / .6)}
+.pad button{appearance:none;border:0;cursor:pointer;aspect-ratio:1;border-radius:10px;background:var(--cap);color:var(--legend);font:600 clamp(16px,2.2vw,22px)/1 "Geist",sans-serif;box-shadow:inset 0 -6px 0 oklch(0% 0 0 / .2),inset 0 2px 0 oklch(100% 0 0 / .5),0 4px 0 oklch(0% 0 0 / .35);transition:transform .06s var(--ease-out),box-shadow .06s var(--ease-out)}
+.pad button.acc{background:var(--cap-accent);color:var(--accent-ink)}
+.pad button.down,.pad button:active{transform:translateY(3px);box-shadow:inset 0 -3px 0 oklch(0% 0 0 / .2),inset 0 2px 0 oklch(100% 0 0 / .5),0 1px 0 oklch(0% 0 0 / .35)}
+.hint{margin-top:14px;color:var(--muted);font-size:13px}
+
+/* Colorways */
+.swatches{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap}
+.sw{appearance:none;border:0;cursor:pointer;display:grid;gap:8px;justify-items:center;background:none;color:var(--muted);font:500 13px/1 "Geist",sans-serif;padding:6px;border-radius:12px}
+.sw span{width:56px;height:56px;border-radius:50%;box-shadow:inset 0 0 0 1px var(--line);display:block;background:conic-gradient(var(--a) 0 50%,var(--b) 0 75%,var(--c) 0)}
+.sw[aria-pressed="true"]{color:var(--text)}
+.sw[aria-pressed="true"] span{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--accent)}
+.mini{transform:perspective(1200px) rotateX(38deg) rotateZ(-10deg);padding:14px;border-radius:14px;background:linear-gradient(160deg,var(--case-hi),var(--case));display:grid;grid-template-columns:repeat(64,1fr);gap:4px;box-shadow:0 40px 60px -30px oklch(0% 0 0 / .8)}
+.mini .k{height:clamp(18px,3vw,34px);border-radius:4px;background:var(--cap);box-shadow:inset 0 -3px 0 oklch(0% 0 0 / .18)}
+.mini .k.mod{background:var(--cap-mod)}.mini .k.acc{background:var(--cap-accent)}
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+
+/* Specs */
+.specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:48px;border-top:1px solid var(--line)}
+.specs div{padding:22px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;padding-right:24px}
+.specs dt{color:var(--muted)}
+.specs dd{margin:0;text-align:right;font-variant-numeric:tabular-nums}
+.buy{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:64px;padding:28px;border-radius:16px;background:var(--bg-2)}
+.buy .price{font-size:clamp(28px,3vw,40px);font-weight:700;letter-spacing:-.02em}
+.buy .price small{display:block;font-size:14px;font-weight:400;color:var(--muted);letter-spacing:0}
+footer{padding:32px 0 48px;color:var(--muted);font-size:13px}
+
+@media (prefers-reduced-motion:reduce){
+  .reveal{animation:none;opacity:1;transform:none;filter:none}
+  *{transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+<nav class="top" aria-label="Main">
+  <a class="logo" href="#">Moraine <span>Works</span></a>
+  <a class="btn" href="#buy">Reserve, €289</a>
+</nav>
+
+<main>
+<header class="hero">
+  <div class="hero-copy wrap">
+    <span class="mono reveal" style="--d:0;color:var(--accent);font-size:13px">Tessel 75, shipping March</span>
+    <h1 class="reveal" style="--d:1">Six layers, tuned by ear.</h1>
+    <p class="reveal" style="--d:2">A 75% gasket keyboard milled from one block of aluminium. Scroll down and take it apart.</p>
+    <div class="actions reveal" style="--d:3"><a class="btn" href="#buy">Reserve yours</a><a class="btn ghost" href="#sound">Hear it first</a></div>
+  </div>
+</header>
+
+<section class="explode" id="explode" aria-label="Exploded view of the Tessel 75">
+  <div class="stage">
+    <div class="kb" id="kb" aria-hidden="true">
+      <div class="layer l-shadow"></div>
+      <div class="layer l-case" data-z="0"></div>
+      <div class="layer l-foam" data-z="10"></div>
+      <div class="layer l-pcb" data-z="18"><div class="keys"></div></div>
+      <div class="layer l-plate" data-z="26"><div class="keys"></div></div>
+      <div class="layer l-switch" data-z="34"><div class="keys"></div></div>
+      <div class="layer l-caps" data-z="46"><div class="keys"></div></div>
+    </div>
+    <div class="captions">
+      <div class="cap"><span class="mono">Keycaps</span><h3>Doubleshot PBT, 1.5 mm walls</h3><p>The legends are a second plastic, so they never wear off.</p></div>
+      <div class="cap"><span class="mono">Switches</span><h3>Linear, 45 g, factory lubed</h3><p>Hot-swap sockets take any 3 or 5 pin switch.</p></div>
+      <div class="cap"><span class="mono">Plate</span><h3>FR4, flex-cut between rows</h3><p>Softer than aluminium, so each press lands with a little give.</p></div>
+      <div class="cap"><span class="mono">PCB</span><h3>South-facing, 1000 Hz polling</h3><p>QMK and VIA ready. Remap every key from a browser.</p></div>
+      <div class="cap"><span class="mono">Foam and case</span><h3>Poron under a 1.9 kg case</h3><p>The weight and foam swallow the ping, leaving a low, round sound.</p></div>
+    </div>
+    <div class="progress" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+  </div>
+</section>
+
+<section class="block" id="sound">
+  <div class="wrap split">
+    <div>
+      <h2>Press a key. Then press another.</h2>
+      <p class="lede">We tuned two sound profiles. Pick one, then tap the keys or type on your own keyboard to hear the difference.</p>
+      <div class="toggle" role="group" aria-label="Sound profile">
+        <span class="pill" aria-hidden="true"></span>
+        <button type="button" aria-pressed="true" data-p="thock">Deep</button>
+        <button type="button" aria-pressed="false" data-p="clack">Crisp</button>
+      </div>
+    </div>
+    <div>
+      <div class="pad" id="pad"></div>
+      <p class="hint">Sound is synthesized in your browser. Turn your volume up a little.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="color">
+  <div class="wrap split">
+    <div>
+      <h2>Three colorways. One you'll keep looking at.</h2>
+      <p class="lede">Each colorway changes the case anodizing and the keycap set together, so they always match.</p>
+      <div class="swatches" role="group" aria-label="Colorway">
+        <button class="sw" type="button" aria-pressed="true" data-cw="graphite" style="--a:oklch(32% .008 255);--b:oklch(90% .006 90);--c:oklch(80% .145 72)"><span></span>Graphite</button>
+        <button class="sw" type="button" aria-pressed="false" data-cw="glacier" style="--a:oklch(82% .02 230);--b:oklch(96% .01 230);--c:oklch(60% .12 240)"><span></span>Glacier</button>
+        <button class="sw" type="button" aria-pressed="false" data-cw="ember" style="--a:oklch(22% .01 30);--b:oklch(32% .01 30);--c:oklch(64% .19 35)"><span></span>Ember</button>
+      </div>
+    </div>
+    <div class="mini" id="mini" aria-hidden="true"></div>
+  </div>
+</section>
+
+<section class="block" id="buy">
+  <div class="wrap">
+    <h2>The details.</h2>
+    <dl class="specs">
+      <div><dt>Layout</dt><dd>75%, 84 keys</dd></div>
+      <div><dt>Case</dt><dd>6063 aluminium, 1.9 kg</dd></div>
+      <div><dt>Mount</dt><dd>Gasket, 12 points</dd></div>
+      <div><dt>Typing angle</dt><dd>6.5°</dd></div>
+      <div><dt>Connection</dt><dd>USB-C, 2.4 GHz, Bluetooth 5.3</dd></div>
+      <div><dt>Battery</dt><dd>4,000 mAh, about 210 hours</dd></div>
+    </dl>
+    <div class="buy">
+      <div class="price">€289<small>Reservation is free. We charge when it ships in March.</small></div>
+      <button class="btn" type="button" id="reserve">Reserve a Tessel 75</button>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="wrap">Moraine Works, Tallinn. Designed and assembled in Estonia.</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* 75% layout in quarter units (64 per row) */
+const ROWS = [
+  [['Esc',4,'acc'],...'F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12'.split(' ').map(k=>[k,4]),['Del',4,'mod'],['Ins',4,'mod'],['Prt',4,'mod']],
+  [...'` 1 2 3 4 5 6 7 8 9 0 - ='.split(' ').map(k=>[k,4]),['Back',8,'mod'],['Home',4,'mod']],
+  [['Tab',6,'mod'],...'Q W E R T Y U I O P [ ]'.split(' ').map(k=>[k,4]),['\\',6,'mod'],['PgUp',4,'mod']],
+  [['Caps',7,'mod'],...'A S D F G H J K L ; \''.split(' ').map(k=>[k,4]),['Enter',9,'acc'],['PgDn',4,'mod']],
+  [['Shift',9,'mod'],...'Z X C V B N M , . /'.split(' ').map(k=>[k,4]),['Shift',7,'mod'],['↑',4,'mod'],['End',4,'mod']],
+  [['Ctrl',5,'mod'],['Opt',5,'mod'],['Cmd',5,'mod'],['',25],['Cmd',4,'mod'],['Fn',4,'mod'],['Ctrl',4,'mod'],['←',4,'mod'],['↓',4,'mod'],['→',4,'mod']],
+];
+function fill(el, withLegend) {
+  ROWS.forEach((row, r) => {
+    let col = 1;
+    row.forEach(([label, w, cls]) => {
+      const k = document.createElement('div');
+      k.className = 'k' + (cls ? ' ' + cls : '');
+      k.style.gridArea = `${r + 1} / ${col} / ${r + 2} / ${col + w}`;
+      if (withLegend) { k.textContent = label; k.dataset.key = label.toLowerCase(); }
+      el.appendChild(k); col += w;
+    });
+  });
+}
+document.querySelectorAll('.l-pcb .keys, .l-plate .keys, .l-switch .keys').forEach(el => fill(el, false));
+fill(document.querySelector('.l-caps .keys'), true);
+fill(document.getElementById('mini'), false);
+
+/* Exploded view */
+const kb = document.getElementById('kb');
+const layers = [...kb.querySelectorAll('.layer[data-z]')];
+const caps = gsap.utils.toArray('.cap');
+const ticks = [...document.querySelectorAll('.progress i')];
+layers.forEach(l => gsap.set(l, { z: +l.dataset.z }));
+const spread = () => Math.min(innerWidth, 1200) / 1200;
+const explodedZ = [0, 70, 150, 230, 320, 430];
+
+if (reduce) {
+  layers.forEach((l, i) => gsap.set(l, { z: explodedZ[i] * spread() }));
+  gsap.set(caps[0], { opacity: 1, y: 0 });
+} else {
+  gsap.registerPlugin(ScrollTrigger);
+  const tl = gsap.timeline({ scrollTrigger: { trigger: '#explode', start: 'top top', end: 'bottom bottom', scrub: 1,
+    onUpdate: s => { const n = Math.min(4, Math.floor(s.progress * 5.2)); ticks.forEach((t, i) => t.classList.toggle('on', i <= n)); } } });
+  tl.to(kb, { rotateX: 62, rotateZ: -38, scale: .64, y: '13svh', duration: 1, ease: 'none' }, 0)
+    .to(layers, { z: (i) => explodedZ[i] * spread(), duration: 1, ease: 'power2.inOut', stagger: { each: .04, from: 'end' } }, 0)
+    .to(kb, { rotateZ: -18, rotateX: 56, duration: 1.4, ease: 'none' }, 1);
+  caps.forEach((c, i) => {
+    const at = .35 + i * .45;
+    tl.fromTo(c, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: .15, ease: 'power2.out' }, at);
+    if (i < caps.length - 1) tl.to(c, { opacity: 0, y: -10, duration: .12, ease: 'power2.in' }, at + .28);
+  });
+  tl.to(layers, { z: (i) => explodedZ[i] * spread() * .12, duration: .8, ease: 'power3.inOut' }, 2.55)
+    .to(kb, { rotateX: 48, rotateZ: -24, scale: 1, y: 0, duration: .8, ease: 'power3.inOut' }, 2.55);
+
+  /* Hero idle: the keyboard drifts with the pointer, only on devices that hover */
+  if (matchMedia('(hover: hover)').matches) {
+    const rx = gsap.quickTo(kb, 'rotationY', { duration: .8, ease: 'power3.out' });
+    addEventListener('pointermove', e => rx((e.clientX / innerWidth - .5) * 8));
+  }
+}
+
+/* Sound: synthesized switch press */
+let ctx, profile = 'thock';
+function press() {
+  ctx ||= new (window.AudioContext || window.webkitAudioContext)();
+  const t = ctx.currentTime, deep = profile === 'thock';
+  const len = .06, buf = ctx.createBuffer(1, ctx.sampleRate * len, ctx.sampleRate), d = buf.getChannelData(0);
+  for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / d.length, deep ? 4 : 7);
+  const src = ctx.createBufferSource(); src.buffer = buf;
+  const f = ctx.createBiquadFilter(); f.type = deep ? 'lowpass' : 'bandpass'; f.frequency.value = (deep ? 1100 : 3400) * (0.92 + Math.random() * .16); f.Q.value = deep ? .8 : 1.4;
+  const g = ctx.createGain(); g.gain.setValueAtTime(deep ? .9 : .6, t);
+  src.connect(f).connect(g).connect(ctx.destination); src.start(t);
+  const o = ctx.createOscillator(), og = ctx.createGain();
+  o.frequency.setValueAtTime(deep ? 140 : 420, t); o.frequency.exponentialRampToValueAtTime(deep ? 60 : 180, t + .05);
+  og.gain.setValueAtTime(deep ? .35 : .12, t); og.gain.exponentialRampToValueAtTime(.001, t + .07);
+  o.connect(og).connect(ctx.destination); o.start(t); o.stop(t + .08);
+}
+const pad = document.getElementById('pad');
+'Q W E R T A S D F G Z X C V B'.split(' ').forEach((k, i) => pad.insertAdjacentHTML('beforeend', `<button type="button" class="${i === 0 ? 'acc' : ''}" data-key="${k.toLowerCase()}" aria-label="Key ${k}">${k}</button>`));
+pad.addEventListener('pointerdown', e => { if (e.target.closest('button')) press(); });
+addEventListener('keydown', e => {
+  if (e.repeat || e.metaKey || e.ctrlKey || e.target.closest('input,textarea')) return;
+  const sec = document.getElementById('sound').getBoundingClientRect();
+  if (sec.top > innerHeight || sec.bottom < 0) return;
+  const b = pad.querySelector(`[data-key="${CSS.escape(e.key.toLowerCase())}"]`);
+  press(); if (b) b.classList.add('down');
+});
+addEventListener('keyup', e => pad.querySelector(`[data-key="${CSS.escape(e.key.toLowerCase())}"]`)?.classList.remove('down'));
+
+const toggle = document.querySelector('.toggle'), pill = toggle.querySelector('.pill');
+function movePill(b) { pill.style.width = b.offsetWidth + 'px'; pill.style.transform = `translateX(${b.offsetLeft - 4}px)`; }
+toggle.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+  profile = b.dataset.p;
+  toggle.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  movePill(b); press();
+}));
+movePill(toggle.querySelector('[aria-pressed="true"]'));
+addEventListener('resize', () => movePill(toggle.querySelector('[aria-pressed="true"]')));
+
+/* Colorways with a circular reveal from the clicked swatch */
+const CW = {
+  graphite: { '--case': 'oklch(32% 0.008 255)', '--case-hi': 'oklch(44% 0.008 255)', '--cap': 'oklch(90% 0.006 90)', '--cap-mod': 'oklch(62% 0.01 255)', '--legend': 'oklch(25% 0.01 255)', '--cap-accent': 'oklch(80% 0.145 72)' },
+  glacier:  { '--case': 'oklch(78% 0.02 230)', '--case-hi': 'oklch(88% 0.015 230)', '--cap': 'oklch(96% 0.01 230)', '--cap-mod': 'oklch(84% 0.03 230)', '--legend': 'oklch(35% 0.05 240)', '--cap-accent': 'oklch(60% 0.12 240)' },
+  ember:    { '--case': 'oklch(22% 0.01 30)', '--case-hi': 'oklch(32% 0.012 30)', '--cap': 'oklch(30% 0.01 30)', '--cap-mod': 'oklch(24% 0.01 30)', '--legend': 'oklch(88% 0.02 60)', '--cap-accent': 'oklch(64% 0.19 35)' },
+};
+const apply = name => Object.entries(CW[name]).forEach(([k, v]) => document.documentElement.style.setProperty(k, v));
+document.querySelectorAll('.sw').forEach(b => b.addEventListener('click', e => {
+  document.querySelectorAll('.sw').forEach(x => x.setAttribute('aria-pressed', x === b));
+  if (!document.startViewTransition || reduce) return apply(b.dataset.cw);
+  const r = b.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
+  const R = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+  document.startViewTransition(() => apply(b.dataset.cw)).ready.then(() =>
+    document.documentElement.animate({ clipPath: [`circle(0 at ${x}px ${y}px)`, `circle(${R}px at ${x}px ${y}px)`] },
+      { duration: 650, easing: 'cubic-bezier(.23,1,.32,1)', pseudoElement: '::view-transition-new(root)' }));
+}));
+
+/* Reserve button */
+const res = document.getElementById('reserve');
+res.addEventListener('click', () => { res.textContent = 'Reserved. Check your email.'; res.disabled = true; });
+</script>
+</body>
+</html>
