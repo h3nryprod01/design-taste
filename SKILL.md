@@ -3,7 +3,7 @@ name: design-taste
 description: Elite frontend design taste for building, reviewing, and polishing web interfaces. Use whenever the user wants to design, redesign, shape, critique, audit, polish, or improve any UI (landing pages, portfolios, dashboards, product UI, components, forms, onboarding, empty states) or asks to make something look better / premium / modern, fix the styling, add or fix animations, or make a design feel less generic ("AI slop"). Covers typography, color, spacing, layout, visual hierarchy, motion, micro-interactions, component states, accessibility, responsive behavior, UX copy, and anti-pattern detection.
 license: MIT AND Apache-2.0
 metadata:
-  version: "2.1.0"
+  version: "2.2.0"
 ---
 
 # Design & Taste
@@ -120,6 +120,10 @@ Pre-flight registers (`reference/pre-flight.md`): Universal Core, Addendum: Pers
 | §6 | Performance & accessibility guardrails: this file's Motion bullets + `reference/motion.md` |
 | §4.3, §4.5, §4.6, §4.7, §4.10 | Upstream subsections with no local heading (do not cite; 4.5 and 4.6 are folded into `reference/pre-flight.md` Addendum: Operate) |
 | §10, §12, §13 | Not ported (upstream taste-skill v2 only) |
+
+## Templates
+
+`templates/` holds two finished pages built with this skill: `swiss-report.html` (Persuade, Swiss / brutalist, light, split-flap board, counters, drawn map) and `depth-launch.html` (Persuade, dark product launch with a scroll-driven exploded isometric figure; `depth-launch-lite.html` is the same page with a light CSS-3D figure). Open the closest one when a brief asks for that register, and take its craft (tokens, motion, states, reduced-motion paths), not its content.
 
 ## How to execute a task
 

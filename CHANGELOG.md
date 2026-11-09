@@ -4,6 +4,21 @@ All notable changes to this project are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.2.0] - 2026-11-09
+
+### Added
+
+- `templates/swiss-report.html`: a Swiss / brutalist annual-report page (Persuade, light) with a split-flap departure board, count-up figures, a monthly bar chart, a self-drawing network map and a word-by-word closing statement, all with reduced-motion fallbacks.
+- `templates/depth-launch.html`: a dark product-launch page whose sticky section takes an isometric 75% keyboard (about 575 solids) apart in six layers on scroll, with captions, progress ticks and a live readout in step; a WebAudio switch-sound demo that also presses keys on the figure (mapped by `e.code`); a colourway picker with a view-transition reveal; a static layout for reduced motion or when GSAP fails to load. GSAP loads from cdnjs with SRI.
+- `templates/depth-launch-lite.html`: the same page with a light CSS-3D keyboard.
+- `templates/build/anatomy-keyboard.mjs`: generator for `depth-launch.html`, using the [Anatomy](https://github.com/wheresryan22/anatomy) kit (MIT) from a separate clone (`ANATOMY_DIR`).
+- `docs/images/`: README screenshots of both templates (desktop and phone).
+- README `Templates` section and a `Templates` pointer in `SKILL.md`.
+
+### Known issues
+
+- `scripts/preflight.mjs` reports `SIDE_STRIPE_BORDER` on `templates/swiss-report.html`: the 2px ink borders there are the structural grid rules of the Swiss layout, not coloured accent stripes. The rule needs to tell structural grid borders apart from decorative stripes.
+
 ## [2.1.0] - 2026-09-25
 
 ### Added
